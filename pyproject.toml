@@ -1,9 +1,9 @@
-[tool.poetry]
-name = "action-setup-vs"
-version = "0.0.0"
-description = "Action to setup Vapoursynth"
-authors = ["DeadNews <deadnewsgit@gmail.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.10"
-vapoursynth = "^70"
+[project]
+name            = "action-setup-vs"
+description     = "Vapoursynt setup action"
+version         = "0.0.0"
+readme          = "README.md"
+license         = "MIT"
+authors         = [{ name = "deadnews", email = "deadnewsgit@gmail.com" }]
+requires-python = ">=3.10"
+dependencies    = ["vapoursynth>=72"]

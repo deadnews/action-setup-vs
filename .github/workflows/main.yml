@@ -3,8 +3,7 @@ name: Main
 on:
   push:
     branches: [main]
-    tags:
-      - "v*"
+    tags: [v*.*.*]
   pull_request:
     branches: [main]
 
@@ -12,13 +11,13 @@ permissions:
   contents: read
 
 jobs:
-  tests:
+  test:
     name: Tests
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.12"]
+        python-version: ["3.13"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -26,24 +25,21 @@ jobs:
       - name: Setup vapoursynth
         uses: ./
 
-      - name: Install poetry
-        run: pipx install poetry
-
-      - uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@bd01e18f51369d5a26f1651c3cb451d3417e3bba # v6.3.1
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: poetry
+          enable-cache: true
 
-      - name: Install deps
-        run: poetry install --no-root
+      - name: Install project
+        run: uv sync --frozen
 
       - name: Check vapoursynth
-        run: poetry run python -c "import vapoursynth; print(vapoursynth.core.version_number())"
+        run: uv run python -c "import vapoursynth; print(vapoursynth.core.version_number())"
 
   github-deploy:
     name: Release to GitHub
     if: github.ref_type == 'tag'
-    needs: [tests]
+    needs: [test]
     environment: github-releases
     permissions:
       contents: write

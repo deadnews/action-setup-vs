@@ -9,6 +9,7 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
+      - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
       - id: detect-private-key
@@ -23,12 +24,12 @@ repos:
       - id: prettier
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.32.0
+    rev: v1.34.0
     hooks:
       - id: typos
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.0
+    rev: 0.33.2
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
@@ -39,13 +40,7 @@ repos:
     hooks:
       - id: actionlint
 
-  - repo: https://github.com/mrtazz/checkmake
-    rev: 0.2.2
+  - repo: https://github.com/compwa/taplo-pre-commit
+    rev: v0.9.3
     hooks:
-      - id: checkmake
-
-  - repo: https://github.com/python-poetry/poetry
-    rev: 2.1.3
-    hooks:
-      - id: poetry-check
-        args: [--lock]
+      - id: taplo-format

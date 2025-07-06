@@ -1,0 +1,23 @@
+version = 1
+revision = 2
+requires-python = ">=3.10"
+
+[[package]]
+name = "action-setup-vs"
+version = "0.0.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "vapoursynth" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "vapoursynth", specifier = ">=72" }]
+
+[[package]]
+name = "vapoursynth"
+version = "72"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/79/a3/97c5c2e31d3177621d9276394d139a027453747e0d3559f289d0adf8273e/vapoursynth-72.zip", hash = "sha256:a4eeaf6464f9bb1b6e58b2f026757c8f1ca7c70697981c89f4dc82d8a62bfb54", size = 664309, upload-time = "2025-06-02T14:59:54.785Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/21/d0/c4e186a9de6bad57c68dc668de6b6949ec44f893e9271077778651c3dfc5/vapoursynth-72-cp312-abi3-win_amd64.whl", hash = "sha256:40fce5ffb48752af50658233787056ca04cd4de4b875ae65d2ea7d83b5d902a6", size = 1058613, upload-time = "2025-06-02T14:59:50.599Z" },
+]
