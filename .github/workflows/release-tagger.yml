@@ -13,7 +13,7 @@ jobs:
     if: true && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Re-tag the major and minor version using the latest tag
       - name: Tag major and minor versions
