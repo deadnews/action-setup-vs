@@ -5,7 +5,7 @@ inputs:
   vs-version:
     description: Vapoursynth version to use, defaults to latest
     required: true
-    default: "72" # renovate: datasource=pypi dep_name=vapoursynth
+    default: "73" # renovate: datasource=pypi dep_name=vapoursynth
   cython-version:
     description: Cython version to use, defaults to latest
     required: true
