@@ -21,11 +21,11 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          MAJOR_VERSION=$(echo ${{ github.ref_name }} | cut -d '.' -f 1)
-          MINOR_VERSION=$(echo ${{ github.ref_name }} | cut -d '.' -f 1,2)
+          MAJOR_VERSION=$(echo ${GITHUB_REF_NAME} | cut -d '.' -f 1)
+          MINOR_VERSION=$(echo ${GITHUB_REF_NAME} | cut -d '.' -f 1,2)
 
-          git tag -a ${MAJOR_VERSION} -m "chore(release): autoupdate for ${{ github.ref_name }}" -f
+          git tag -a ${MAJOR_VERSION} -m "chore(release): autoupdate for ${GITHUB_REF_NAME}" -f
           git push origin ${MAJOR_VERSION} -f
 
-          git tag -a ${MINOR_VERSION} -m "chore(release): autoupdate for ${{ github.ref_name }}" -f
+          git tag -a ${MINOR_VERSION} -m "chore(release): autoupdate for ${GITHUB_REF_NAME}" -f
           git push origin ${MINOR_VERSION} -f

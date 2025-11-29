@@ -74,8 +74,9 @@ runs:
     - name: Make zimg
       if: (runner.os == 'linux' || runner.os == 'macos') && steps.cache-zimg.outputs.cache-hit != 'true'
       shell: bash
+      env:
+        VERSION: ${{ inputs.zimg-version }}
       run: |
-        VERSION="${{ inputs.zimg-version }}"
         git clone https://github.com/sekrit-twc/zimg /tmp/zimg --depth 1 -b release-${VERSION//v/}
         cd /tmp/zimg
         ./autogen.sh
@@ -92,8 +93,9 @@ runs:
     - name: Make vapoursynth
       if: (runner.os == 'linux' || runner.os == 'macos') && steps.cache-vs.outputs.cache-hit != 'true'
       shell: bash
+      env:
+        VERSION: ${{ inputs.vs-version }}
       run: |
-        VERSION="${{ inputs.vs-version }}"
         git clone https://github.com/vapoursynth/vapoursynth /tmp/vapoursynth --depth 1 -b R${VERSION}
         cd /tmp/vapoursynth
         ./autogen.sh

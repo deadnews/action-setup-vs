@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.13"]
+        python-version: ["3.14"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
@@ -52,10 +52,10 @@ jobs:
 
       - name: Create GitHub Release
         run: |
-          gh release create ${{ github.ref_name }} \
-            --title ${{ github.ref_name }} \
-            --notes="See [the CHANGELOG](${{ env.CHANGELOG }}) for more details." \
-            --draft=${{ env.PRERELEASE }} \
-            --prerelease=${{ env.PRERELEASE }}
+          gh release create ${GITHUB_REF_NAME} \
+            --title ${GITHUB_REF_NAME} \
+            --notes="See [the CHANGELOG](${CHANGELOG}) for more details." \
+            --draft=${PRERELEASE} \
+            --prerelease=${PRERELEASE}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

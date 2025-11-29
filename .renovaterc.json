@@ -1,10 +1,28 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "github>deadnews/renovate-config",
-    "github>deadnews/renovate-config:preset-action-manydeps",
-    "github>deadnews/renovate-config:preset-docs-actions"
+  "extends": ["config:recommended", "github>deadnews/renovate-config"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Detect dependencies in Dockerfile",
+      "fileMatch": ["(^|/)Dockerfile[^/]*$"],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>.*?) dep_name=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=\"(?<currentValue>.*)\"\\s"
+      ],
+      "semanticCommitType": "build",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-tags",
+      "description": "Update Github Action references in the markdown files",
+      "fileMatch": ["\\.md$"],
+      "matchStrings": [
+        "\\suses: (?<depName>[\\w-]+/[\\w-]+)(?<path>/.*)?@(?<currentValue>v\\d+(\\.\\d+)?(\\.\\d+)?)",
+        "\\suses: (?<depName>[\\w-]+/[\\w-]+)(?<path>/.*)?@(?<currentDigest>[a-z0-9]{40}|[a-z0-9]{64}) # (?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+      ],
+      "versioningTemplate": "semver"
+    }
   ],
   "packageRules": [
     {
@@ -13,6 +31,13 @@
       "matchPackageNames": ["vapoursynth"],
       "minimumReleaseAge": "0 days",
       "schedule": ["at any time"]
+    },
+    {
+      "addLabels": ["docs"],
+      "description": "Use docs semantic type for markdown files updates",
+      "matchPaths": ["**/*.md"],
+      "schedule": ["at any time"],
+      "semanticCommitType": "docs"
     }
   ]
 }
