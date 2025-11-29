@@ -11,13 +11,13 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "vapoursynth", specifier = ">=72" }]
+requires-dist = [{ name = "vapoursynth", specifier = ">=73" }]
 
 [[package]]
 name = "vapoursynth"
-version = "72"
+version = "73"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/79/a3/97c5c2e31d3177621d9276394d139a027453747e0d3559f289d0adf8273e/vapoursynth-72.zip", hash = "sha256:a4eeaf6464f9bb1b6e58b2f026757c8f1ca7c70697981c89f4dc82d8a62bfb54", size = 664309, upload-time = "2025-06-02T14:59:54.785Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/40/29/85866b3c00b9f7e4b34007da02e2db286cc39370a0823108ce204ea5cc6b/vapoursynth-73.tar.gz", hash = "sha256:d52b29f37617a594c5dd1580e7831a08800d5fb5ae8fc8e833fa70bdf1178cc3", size = 67402, upload-time = "2025-11-24T16:58:32.223Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/21/d0/c4e186a9de6bad57c68dc668de6b6949ec44f893e9271077778651c3dfc5/vapoursynth-72-cp312-abi3-win_amd64.whl", hash = "sha256:40fce5ffb48752af50658233787056ca04cd4de4b875ae65d2ea7d83b5d902a6", size = 1058613, upload-time = "2025-06-02T14:59:50.599Z" },
+    { url = "https://files.pythonhosted.org/packages/73/e2/d621d4d4076277b98a244c38eb4bc3790fda3a3c66e5165fca4f6c2317a3/vapoursynth-73-cp312-abi3-win_amd64.whl", hash = "sha256:6f6543b2e3b62be14d23145ad8d14319b1eaf56cb9babd8fae2068411d31bc72", size = 1089499, upload-time = "2025-11-24T16:58:28.9Z" },
 ]

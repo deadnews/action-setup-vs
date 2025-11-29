@@ -6,4 +6,4 @@ readme          = "README.md"
 license         = "MIT"
 authors         = [{ name = "deadnews", email = "deadnewsgit@gmail.com" }]
 requires-python = ">=3.10"
-dependencies    = ["vapoursynth>=72"]
+dependencies    = ["vapoursynth>=73"]
