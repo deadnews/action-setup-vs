@@ -5,7 +5,7 @@
     {
       "customType": "regex",
       "description": "Detect dependencies in Dockerfile",
-      "fileMatch": ["(^|/)Dockerfile[^/]*$"],
+      "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/"],
       "matchStrings": [
         "#\\s*renovate:\\s*datasource=(?<datasource>.*?) dep_name=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=\"(?<currentValue>.*)\"\\s"
       ],
@@ -15,7 +15,7 @@
       "customType": "regex",
       "datasourceTemplate": "github-tags",
       "description": "Update Github Action references in the markdown files",
-      "fileMatch": ["\\.md$"],
+      "managerFilePatterns": ["/\\.md$/"],
       "matchStrings": [
         "\\suses: (?<depName>[\\w-]+/[\\w-]+)(?<path>/.*)?@(?<currentValue>v\\d+(\\.\\d+)?(\\.\\d+)?)",
         "\\suses: (?<depName>[\\w-]+/[\\w-]+)(?<path>/.*)?@(?<currentDigest>[a-z0-9]{40}|[a-z0-9]{64}) # (?<currentValue>v\\d+\\.\\d+\\.\\d+)"
@@ -34,7 +34,7 @@
     {
       "addLabels": ["docs"],
       "description": "Use docs semantic type for markdown files updates",
-      "matchPaths": ["**/*.md"],
+      "matchFileNames": ["**/*.md"],
       "schedule": ["at any time"],
       "semanticCommitType": "docs"
     }
