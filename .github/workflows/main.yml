@@ -20,13 +20,13 @@ jobs:
         python-version: ["3.14"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup vapoursynth
         uses: ./
 
       - name: Install uv
-        uses: astral-sh/setup-uv@3259c6206f993105e3a61b142c2d97bf4b9ef83d # v7.1.0
+        uses: astral-sh/setup-uv@1e862dfacbd1d6d858c55d9b792c756523627244 # v7.1.4
         with:
           enable-cache: true
 
@@ -48,7 +48,7 @@ jobs:
       PRERELEASE: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Create GitHub Release
         run: |
