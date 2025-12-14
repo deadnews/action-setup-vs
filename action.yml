@@ -44,27 +44,33 @@ runs:
 
     - name: Set env vars
       if: runner.os == 'linux'
+      id: set-env
       shell: bash
       run: |
-        echo "CORES=$(nproc)" >> $GITHUB_ENV
-        echo "PREFIX=/usr" >> $GITHUB_ENV
+        echo "cores=$(nproc)" >> $GITHUB_OUTPUT
+        echo "prefix=/usr" >> $GITHUB_OUTPUT
 
     - name: Set env vars
       if: runner.os == 'macos'
+      id: set-env
       shell: bash
       run: |
-        echo "CORES=$(sysctl -n hw.ncpu)" >> $GITHUB_ENV
-        echo "PREFIX=/usr/local" >> $GITHUB_ENV
+        echo "cores=$(sysctl -n hw.ncpu)" >> $GITHUB_OUTPUT
+        echo "prefix=/usr/local" >> $GITHUB_OUTPUT
 
     - name: Install cython
       if: runner.os == 'linux' && steps.cache-vs.outputs.cache-hit != 'true'
       shell: bash
-      run: pip3 install "cython==${{ inputs.cython-version }}"
+      env:
+        CYTHON_VERSION: ${{ inputs.cython-version }}
+      run: pip3 install "cython==${CYTHON_VERSION}"
 
     - name: Install cython
       if: runner.os == 'macos' && steps.cache-vs.outputs.cache-hit != 'true'
       shell: bash
-      run: pip3 install --break-system-packages "cython==${{ inputs.cython-version }}"
+      env:
+        CYTHON_VERSION: ${{ inputs.cython-version }}
+      run: pip3 install --break-system-packages "cython==${CYTHON_VERSION}"
 
     - name: Install automake
       if: runner.os == 'macos' && (steps.cache-vs.outputs.cache-hit != 'true' || steps.cache-zimg.outputs.cache-hit != 'true')
@@ -75,39 +81,47 @@ runs:
       if: (runner.os == 'linux' || runner.os == 'macos') && steps.cache-zimg.outputs.cache-hit != 'true'
       shell: bash
       env:
-        VERSION: ${{ inputs.zimg-version }}
+        ZIMG_VERSION: ${{ inputs.zimg-version }}
+        CORES: ${{ steps.set-env.outputs.cores }}
+        PREFIX: ${{ steps.set-env.outputs.prefix }}
       run: |
-        git clone https://github.com/sekrit-twc/zimg /tmp/zimg --depth 1 -b release-${VERSION//v/}
+        git clone https://github.com/sekrit-twc/zimg /tmp/zimg --depth 1 -b release-${ZIMG_VERSION//v/}
         cd /tmp/zimg
         ./autogen.sh
-        ./configure --prefix=$PREFIX
-        make -j$CORES
+        ./configure --prefix=${PREFIX}
+        make -j${CORES}
 
     - name: Install zimg
       if: runner.os == 'linux' || runner.os == 'macos'
       shell: bash
+      env:
+        CORES: ${{ steps.set-env.outputs.cores }}
       run: |
         cd /tmp/zimg
-        sudo make install -j$CORES
+        sudo make install -j${CORES}
 
     - name: Make vapoursynth
       if: (runner.os == 'linux' || runner.os == 'macos') && steps.cache-vs.outputs.cache-hit != 'true'
       shell: bash
       env:
-        VERSION: ${{ inputs.vs-version }}
+        VS_VERSION: ${{ inputs.vs-version }}
+        CORES: ${{ steps.set-env.outputs.cores }}
+        PREFIX: ${{ steps.set-env.outputs.prefix }}
       run: |
-        git clone https://github.com/vapoursynth/vapoursynth /tmp/vapoursynth --depth 1 -b R${VERSION}
+        git clone https://github.com/vapoursynth/vapoursynth /tmp/vapoursynth --depth 1 -b R${VS_VERSION}
         cd /tmp/vapoursynth
         ./autogen.sh
-        ./configure --prefix=$PREFIX --disable-x86-asm --disable-vspipe
-        make -j$CORES
+        ./configure --prefix=${PREFIX} --disable-x86-asm --disable-vspipe
+        make -j${CORES}
 
     - name: Install vapoursynth
       if: runner.os == 'linux' || runner.os == 'macos'
       shell: bash
+      env:
+        CORES: ${{ steps.set-env.outputs.cores }}
       run: |
         cd /tmp/vapoursynth
-        sudo make install -j$CORES
+        sudo make install -j${CORES}
 
 branding:
   icon: video
