@@ -43,20 +43,16 @@ runs:
           !/tmp/zimg/_msvc
 
     - name: Set env vars
-      if: runner.os == 'linux'
       id: set-env
       shell: bash
       run: |
-        echo "cores=$(nproc)" >> $GITHUB_OUTPUT
-        echo "prefix=/usr" >> $GITHUB_OUTPUT
-
-    - name: Set env vars
-      if: runner.os == 'macos'
-      id: set-env
-      shell: bash
-      run: |
-        echo "cores=$(sysctl -n hw.ncpu)" >> $GITHUB_OUTPUT
-        echo "prefix=/usr/local" >> $GITHUB_OUTPUT
+        if [[ "${RUNNER_OS,,}" = "linux" ]]; then
+          echo "cores=$(nproc)" >> $GITHUB_OUTPUT
+          echo "prefix=/usr" >> $GITHUB_OUTPUT
+        elif [[ "${RUNNER_OS,,}" = "macos" ]]; then
+          echo "cores=$(sysctl -n hw.ncpu)" >> $GITHUB_OUTPUT
+          echo "prefix=/usr/local" >> $GITHUB_OUTPUT
+        fi
 
     - name: Install cython
       if: runner.os == 'linux' && steps.cache-vs.outputs.cache-hit != 'true'
