@@ -21,7 +21,7 @@ runs:
     - name: Cache vapoursynth
       if: runner.os == 'linux' || runner.os == 'macos'
       id: cache-vs
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         key: ${{ runner.os }}-vs-${{ inputs.vs-version }}
         path: |
@@ -34,7 +34,7 @@ runs:
     - name: Cache zimg
       if: runner.os == 'linux' || runner.os == 'macos'
       id: cache-zimg
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         key: ${{ runner.os }}-zimg-${{ inputs.zimg-version }}
         path: |
