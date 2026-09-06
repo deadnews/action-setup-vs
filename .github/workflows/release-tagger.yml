@@ -13,7 +13,7 @@ jobs:
     if: true && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # Re-tag the major and minor version using the latest tag
       - name: Tag major and minor versions
@@ -21,11 +21,11 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          MAJOR_VERSION=$(echo ${GITHUB_REF_NAME} | cut -d '.' -f 1)
-          MINOR_VERSION=$(echo ${GITHUB_REF_NAME} | cut -d '.' -f 1,2)
+          MAJOR_VERSION="${GITHUB_REF_NAME%%.*}"
+          MINOR_VERSION="${GITHUB_REF_NAME%.*}"
 
-          git tag -a ${MAJOR_VERSION} -m "chore(release): autoupdate for ${GITHUB_REF_NAME}" -f
-          git push origin ${MAJOR_VERSION} -f
+          git tag -a "${MAJOR_VERSION}" -m "chore(release): autoupdate for ${GITHUB_REF_NAME}" -f
+          git push origin "${MAJOR_VERSION}" -f
 
-          git tag -a ${MINOR_VERSION} -m "chore(release): autoupdate for ${GITHUB_REF_NAME}" -f
-          git push origin ${MINOR_VERSION} -f
+          git tag -a "${MINOR_VERSION}" -m "chore(release): autoupdate for ${GITHUB_REF_NAME}" -f
+          git push origin "${MINOR_VERSION}" -f

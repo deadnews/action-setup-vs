@@ -4,7 +4,7 @@
 
 [![GitHub: Release](https://img.shields.io/github/v/release/deadnews/action-setup-vs?logo=github&logoColor=white)](https://github.com/deadnews/action-setup-vs/releases/latest)
 [![CI: pre-commit](https://results.pre-commit.ci/badge/github/deadnews/action-setup-vs/main.svg)](https://results.pre-commit.ci/latest/github/deadnews/action-setup-vs/main)
-[![CI: Main](https://img.shields.io/github/actions/workflow/status/deadnews/action-setup-vs/main.yml?branch=main&logo=github&logoColor=white&label=main)](https://github.com/deadnews/action-setup-vs/actions/workflows/main.yml)
+[![CI: Main](https://img.shields.io/github/actions/workflow/status/deadnews/action-setup-vs/main.yml?branch=main&logo=github&logoColor=white&label=main)](https://github.com/deadnews/action-setup-vs)
 
 ## Usage
 

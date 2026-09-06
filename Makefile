@@ -1,23 +1,27 @@
-.PHONY: all clean default install lock update check pc test docs run
+.PHONY: alpha bumped check install lock pc release update
 
 default: check
-
-install:
-	uv sync
-lock:
-	uv lock
-update:
-	uv sync --upgrade
-	prek auto-update
 
 check: pc
 pc:
 	prek run -a
 
+update: up up-ci
+up:
+	uv sync --upgrade
+up-ci:
+	prek update
+	pinact run --update
+
 bumped:
 	git cliff --bumped-version
 
-# make release TAG=$(git cliff --bumped-version)-alpha.0
+# make alpha TAG=$(git cliff --bumped-version)-alpha.0
+alpha: check
+	git tag -a $(TAG) -m "chore(release): $(TAG)"
+	git push origin $(TAG)
+
+# make release TAG=$(git cliff --bumped-version)
 release: check
 	git cliff -o CHANGELOG.md --tag $(TAG)
 	prek run --files CHANGELOG.md || prek run --files CHANGELOG.md
